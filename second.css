@@ -1,0 +1,33 @@
+/* Write your CSS here */
+.imgcontent{
+    margin-left:10%;
+    font-size:25px;
+    /*display: inline-block;*/
+    vertical-align:middle;
+}
+.maindiv{
+    margin:auto;
+    width:70%;
+    background-color: #DCDCDC;
+    border:2px solid silver;
+    padding-right:10px;
+    padding-bottom:10px;
+  
+}
+.imageset{
+    display:inline-block;
+    /*height:60px;*/
+    /*width:40px;*/
+    margin-left:2%;
+     vertical-align:middle;
+}
+img{
+   height:60px;
+    width:40px;
+    vertical-align:middle;
+    margin-left:4%;
+    margin-bottom: 2%;
+}
+.A{
+    list-style-type:none;
+}

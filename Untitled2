@@ -1,0 +1,264 @@
+def write_data(sql_query):
+	import sqlite3
+	connection = sqlite3.connect("students.sqlite3")
+	crsr = connection.cursor() 
+	crsr.execute("PRAGMA foreign_keys=on;") 
+	crsr.execute(sql_query) 
+	connection.commit() 
+	connection.close()
+
+def read_data(sql_query):
+	import sqlite3
+	connection = sqlite3.connect("students.sqlite3")
+	crsr = connection.cursor() 
+	crsr.execute(sql_query) 
+	ans= crsr.fetchall()  
+	connection.close() 
+	return ans
+
+
+class InvalidField(Exception):
+    pass
+
+
+class Student:
+    def __init__(self, name, age, score):
+        self.name = name
+        self.student_id = None
+        self.age = age
+        self.score = score
+
+
+    def aggregation(f,**kargs):
+        pass
+    @classmethod
+    def avg(cls,field,**kwargs):
+        if(len(kwargs) == 0):
+            if field in ['age','score','student_id']:
+                data = read_data('''select avg({}) from student'''.format(field))
+                return data[0][0]
+                
+            else :
+                raise InvalidField
+                
+        else :
+            keys_li = []
+            mc = kwargs
+            for k,v in kwargs.items():
+                keys_li.append(k)
+                
+                
+            if(len(keys_li) == 1):    
+                for k,v in kwargs.items():
+                    key = (k.split('__'))
+                    value = v
+                    print(key,value)
+                    
+                    if field in ['age','score','student_id'] :  
+                        if key[1] == 'lt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select avg({}) from Student where {} < {}'''.format(field,key[0],v))
+                                return data[0][0]    
+                                
+                        elif key[1] == 'gt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select avg({}) from Student where {} > {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'lte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select avg({}) from Student where {} <= {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'gte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select avg({}) from Student where {} >= {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                
+                                
+    @classmethod
+    def sum(cls,field,**kwargs):
+        if(len(kwargs) == 0):
+            if field in ['age','score','student_id']:
+                data = read_data('''select sum({}) from student'''.format(field))
+                return data[0][0]
+                
+            else :
+                raise InvalidField
+                
+        else :
+            keys_li = []
+            mc = kwargs
+            for k,v in kwargs.items():
+                keys_li.append(k)
+                
+                
+            if(len(keys_li) == 1):    
+                for k,v in kwargs.items():
+                    key = (k.split('__'))
+                    value = v
+                    print(key,value)
+                    
+                    if field in ['age','score','student_id'] :  
+                        if key[1] == 'lt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select sum({}) from Student where {} < {}'''.format(field,key[0],v))
+                                return data[0][0]    
+                                
+                        elif key[1] == 'gt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select sum({}) from Student where {} > {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'lte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select sum({}) from Student where {} <= {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'gte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select sum({}) from Student where {} >= {}'''.format(field,key[0],v))
+                                return data[0][0]
+    
+    
+    
+    @classmethod
+    def count(cls,field,**kwargs):
+        if(len(kwargs) == 0):
+            if field in ['age','score','student_id']:
+                data = read_data('''select count({}) from student'''.format(field))
+                return data[0][0]
+                
+            else :
+                raise InvalidField
+                
+        else :
+            keys_li = []
+            mc = kwargs
+            for k,v in kwargs.items():
+                keys_li.append(k)
+                
+                
+            if(len(keys_li) == 1):    
+                for k,v in kwargs.items():
+                    key = (k.split('__'))
+                    value = v
+                    print(key,value)
+                    
+                    if field in ['age','score','student_id'] :  
+                        if key[1] == 'lt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select count({}) from Student where {} < {}'''.format(field,key[0],v))
+                                return data[0][0]    
+                                
+                        elif key[1] == 'gt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select count({}) from Student where {} > {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'lte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select count({}) from Student where {} <= {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'gte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select count({}) from Student where {} >= {}'''.format(field,key[0],v))
+                                return data[0][0] 
+                                
+    @classmethod
+    def min(cls,field,**kwargs):
+        if(len(kwargs) == 0):
+            if field in ['age','score','student_id']:
+                data = read_data('''select min({}) from student'''.format(field))
+                return data[0][0]
+                
+            else :
+                raise InvalidField
+                
+        else :
+            keys_li = []
+            mc = kwargs
+            for k,v in kwargs.items():
+                keys_li.append(k)
+                
+                
+            if(len(keys_li) == 1):    
+                for k,v in kwargs.items():
+                    key = (k.split('__'))
+                    value = v
+                    print(key,value)
+                    
+                    if field in ['age','score','student_id'] :  
+                        if key[1] == 'lt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select min({}) from Student where {} < {}'''.format(field,key[0],v))
+                                return data[0][0]    
+                                
+                        elif key[1] == 'gt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select min({}) from Student where {} > {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'lte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select min({}) from Student where {} <= {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'gte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select min({}) from Student where {} >= {}'''.format(field,key[0],v))
+                                return data[0][0]
+    
+    
+    @classmethod
+    def max(cls,field,**kwargs):
+        if(len(kwargs) == 0):
+            if field in ['age','score','student_id']:
+                data = read_data('''select max({}) from student'''.format(field))
+                return data[0][0]
+                
+            else :
+                raise InvalidField
+                
+        else :
+            keys_li = []
+            mc = kwargs
+            for k,v in kwargs.items():
+                keys_li.append(k)
+                
+                
+            if(len(keys_li) == 1):    
+                for k,v in kwargs.items():
+                    key = (k.split('__'))
+                    value = v
+                    print(key,value)
+                    
+                    if field in ['age','score','student_id'] :  
+                        if key[1] == 'lt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select max({}) from Student where {} < {}'''.format(field,key[0],v))
+                                return data[0][0]    
+                                
+                        elif key[1] == 'gt':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select max({}) from Student where {} > {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'lte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select max({}) from Student where {} <= {}'''.format(field,key[0],v))
+                                return data[0][0]
+                                            
+                        elif key[1] == 'gte':
+                            if key[0] in ['age','score','student_id']:
+                                data = read_data('''select max({}) from Student where {} >= {}'''.format(field,key[0],v))
+                                return data[0][0]            
+            
+                    
+    
+ 
+         
+'''         
+avg_age = Student.avg('age',age__gt = 18)
+print(avg_age)'''
